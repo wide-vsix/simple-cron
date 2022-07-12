@@ -18,6 +18,10 @@ services:
         # compress 1 days age file
         find /var/log/gobgp/ribs/ -type f -name "*.dump" -mtime +1  | xargs -I arg echo Compress file: arg
         find /var/log/gobgp/ribs/ -type f -name "*.dump" -mtime +3  | xargs -I arg bzip2 arg
+        # rsync
+        rsync -tvz -6 /var/log/gobgp/ribs/*.dump wide-vsix@example.com:/backup"
+
     volumes:
       - /var/log/gobgp:/var/log/gobgp
+      - $(pwd)/.ssh:/ssh:ro # if you want to use ssh,
 ```

@@ -2,6 +2,13 @@
 
 set -e
 
+if test -d /ssh; then
+    # if ssh dir mounted
+    mkdir -p ~/.ssh
+    cp -r /ssh/* ~/.ssh/
+    chown -R $(id -u):$(id -g) ~/.ssh
+fi
+
 # Creates the cron script
 cat << EOF > /run-script.sh
 echo ------------
